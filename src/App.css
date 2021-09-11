@@ -1,38 +1,235 @@
+body{
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: rgb(255, 250, 245);
+}
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  height: 100%;
+}
+.navigation{
+  display: flex;
   align-items: center;
+
+  height: 100px;
+
+  padding-right: 100px;
+  padding-left: 100px;
+
+  background-color: white;
+
+  -webkit-box-shadow: 0px 11px 16px -7px rgba(0,0,0,0.21); 
+  box-shadow: 0px 11px 16px -7px rgba(0,0,0,0.21);
+}
+.dark-mode{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  cursor:pointer;
+}
+
+.main{
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 100px;
+}
+
+.inputs{
+  display:flex;
+}
+
+.input{
+  background: url(images/search.svg) no-repeat scroll 15px;
+  background-size: 20px 20px;
+
+  background-color: white;
+
+  padding-left:60px;
+  padding-top: 22.5px;
+  padding-bottom: 22.5px;
+  padding-right: 15%;
+
+  border: 0;
+  border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
+box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  margin-left: auto;
+}
+
+.dropdown-button{
+  background-color: white;
+
+  padding: 10px;
+
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
+  box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 133px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 5px 10px;
+  z-index: 1;
+
+  margin-top: 15px;
+
+  text-align: left;
+}
+
+.dropdown-content p{
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+
+  cursor: pointer;
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.countries{
+  display: flex;
+  flex-direction: row;
+  
+  text-align: left;
+
+  margin-top: 100px;
+
+
+  flex-wrap: wrap;
+
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.country-container{
+  background-color: white;
+
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
+  box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
+
+  border-radius: 10px;
+
+  margin-right: 40px;
+  margin-bottom: 40px;
+}
+.country-container:hover{
+  -webkit-box-shadow: 0px 0px 28px -3px rgba(0,0,0,0.83); 
+box-shadow: 0px 0px 28px -3px rgba(0,0,0,0.83);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.country-image-container{
+  height: 300px;
+  width: 400px;
+  border-radius: 7px;
+}
+
+.country-image{
+  height: 300px;
+  width: 400px;
+  
+  object-fit:cover;
+
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.country-info{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.country-info h3{
+  font-size: 18px;
+  font-weight: 700;
+
+}
+
+.back-button{
+  background-color: white;
+
+  padding: 10px 30px;
+
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
+  box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
+
+  cursor: pointer;
+}
+
+.country-info-container{
+  display: flex;
+
+  margin-top: 100px;
+
+  justify-content: center;
+
+
+}
+
+.country-info-flag{
+
+  width:50vh;
+  height: auto;
+
+  margin-right: 100px;
+}
+.country-info-flag img{
+  width:50vh;
+  height: auto;
+  object-fit:cover;
+
+}
+.country-details-container{
+  text-align: left !important;
+  margin-left: 100px;
+}
+.country-info-name{
+
+  font-weight: 700;
+
+}
+.country-info-details{
+  display: flex;
+
+}
+.country-info-details-left{
+  margin-right: 20px;
+
+}
+.country-info-details-right{
+  
+}
+.bold-text p{
+  font-weight: 700;
+}
+.bold-text span{
+  font-weight: 300;
+}
+
+.border-countries p{
+  font-weight: 700;
+  margin-top: 40px;
+
+}
+.border-countries span{
+  padding:10px 20px;
+  margin-left: 5px;
+
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
+  box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
 }
