@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import axios from 'axios';
 
@@ -18,6 +18,8 @@ function App() {
   const [countryData, setCountryData] = useState();
 
   const [searchValue, setSearchValue] = useState('');
+
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     axios.get(`https://restcountries.eu/rest/v2/all`)
@@ -81,7 +83,7 @@ function App() {
                 ))}</p>
               </div>
             </div>
-            <div className="border-countries">
+            <div className={darkMode ? 'border-countries-dark' : 'border-countries'}>
             <p>Border Countries: {countryData.borders.map(border => (
                   <span>{border}</span>
                 ))}</p>
@@ -94,12 +96,6 @@ function App() {
     );
   }
 
-function Input(){
-  return(
-    <input type="text" key="searchKey" className="input" placeholder="Search" onKeyDown={(e) => {handleKeyDown(e)}} defaultValue={searchValue} onInput={e => {setSearchValue(e.target.value)}} />
-  );
-}
-
   function AllCountries(){
 
   
@@ -107,12 +103,12 @@ function Input(){
     return(
       <div className="main">
         <div className="inputs">
-          <input type="text" key="searchKey" className="input" placeholder="Search" onKeyUp={(e) => {handleKeyDown(e)}} defaultValue={searchValue} onInput={e => {setSearchValue(e.target.value)}} /> 
+          <input type="text" className={darkMode ? 'input-dark' : 'input'} placeholder="Search" onKeyUp={(e) => {handleKeyDown(e)}} defaultValue={searchValue} onInput={e => {setSearchValue(e.target.value)}} /> 
           <div className="dropdown">
             <span className="dropdown-button" id="hello">Filter by Region <i className="fas fa-chevron-down" style={{marginLeft: '5px'}}></i></span>
-            <div className="dropdown-content">
+            <div className={darkMode ? 'dropdown-content-dark' : 'dropdown-content'}>
               <p onClick={()=>{getRegionCountries('africa')}}>Africa</p>
-              <p onClick={()=>{getRegionCountries('america')}}>America</p>
+              <p onClick={()=>{getRegionCountries('americas')}}>America</p>
               <p onClick={()=>{getRegionCountries('asia')}}>Asia</p>
               <p onClick={()=>{getRegionCountries('europe')}}>Europe</p>
               <p onClick={()=>{getRegionCountries('oceania')}}>Oceania</p>
@@ -123,7 +119,7 @@ function Input(){
           {
           loaded ? 
           countries.map(country => (
-            <Country key={country.id} name={country.name} img={country.flag} population={country.population} region={country.region} capital={country.capital} nativename={country.nativeName} subregion={country.subregion} topLevelDomain={country.topLevelDomain} numericCode={country.numericCode} timezone={country.timezones} borders={country.borders} languages={country.languages}/>
+            <Country key={country.alpha3Code} name={country.name} img={country.flag} population={country.population} region={country.region} capital={country.capital} nativename={country.nativeName} subregion={country.subregion} topLevelDomain={country.topLevelDomain} numericCode={country.numericCode} timezone={country.timezones} borders={country.borders} languages={country.languages}/>
             )
           ) : <h3>Loading...</h3>
           }
@@ -157,7 +153,6 @@ function Input(){
 
 
   const handleKeyDown = (event) =>{
-    console.log(event.target.value)
       let evt = new KeyboardEvent("keydown", {
         key: "Enter",
         keyCode: 13
@@ -173,17 +168,25 @@ function Input(){
 
   const showCountry = (props) =>{
     setCountryData(props)
-    console.log("props: " + props)
     setShowOneCountry(true);
   }
 
+  const darkModeActive = () => {
+    setDarkMode(!darkMode);
+    if(darkMode === true){
+      document.body.classList.remove('bg-black');
+    }else{
+      document.body.classList.add('bg-black');
+    }
+  }
+
   return (
-    <div className="App">
-      <div className="navigation">
+    <div className={darkMode ? 'App-dark' : 'App'}>
+      <div className={darkMode ? 'navigation-dark' : 'navigation'}>
         <h1 className="title">Where in the world?</h1>
-        <div className="dark-mode">
-          <i className="fas fa-moon" style={{marginRight: '10px'}}></i> {/* <i className="far fa-moon"></i>*/}
-          <h3>Dark Mode</h3>
+        <div className="dark-mode" onClick={() => {darkModeActive()}}>
+          <i className="fas fa-moon" style={darkMode ? {color: 'white', marginRight: '10px'} : {marginRight: '10px'}}></i> {/* <i className="far fa-moon"></i>*/}
+          <h3> Dark Mode</h3>
         </div>
       </div>
       {showOneCountry ? <OneCountry/> : AllCountries()}
