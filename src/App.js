@@ -12,7 +12,7 @@ function App() {
 
 
   const [loaded, setLoaded] = useState(false);
-  const [countries, setCountries] = useState();
+  const [countries, setCountries] = useState([{name: 'Bosnia', img: null, region: 'Europe', capital: 'Sarajevo', nativename: 'Bosnia', subregion:'Balkans', numericCode: '387', borders: 'CRO', languages: 'Bosanski'}]);
 
   const [showOneCountry, setShowOneCountry] = useState(false);
   const [countryData, setCountryData] = useState();
@@ -22,7 +22,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    axios.get(`https://restcountries.eu/rest/v2/all`)
+    axios.get(`https://restcountries.com/v3/all`)
     .then(res => {
       setCountries(res.data)
       setLoaded(true)
@@ -31,13 +31,12 @@ function App() {
   
   function Country(props){
     return(
-      <div className="country-container" onClick={() => showCountry({name: props.name, img:props.img, population: props.population, region: props.region, capital: props.capital, nativename: props.nativename, subregion: props.subregion, topLevelDomain: props.topLevelDomain, numericCode: props.numericCode, timezone: props.timezone, borders: props.borders, languages: props.languages})}>
+      <div className="country-container" onClick={() => showCountry({name: props.name, img:props.img, region: props.region, capital: props.capital, nativename: props.nativename, subregion: props.subregion, numericCode: props.numericCode, borders: props.borders, languages: props.languages})}>
         <div className="country-image-container">
           <img src={props.img} className="country-image" alt="flag"/>
         </div>
         <div className="country-info">
           <h3>{props.name}</h3>
-          <p>Population : <span className="bold">{props.population}</span></p>
           <p>Region : <span className="bold">{props.region}</span></p>
           <p>Capital : <span className="bold">{props.capital}</span></p>
         </div>
@@ -46,9 +45,16 @@ function App() {
   }
 
   function OneCountry(){
+    console.log(countryData.borders);
+
+    if(countryData.borders === undefined){
+      countryData.borders = false;
+    }
+
+    console.log("after" + countryData.borders);
 
     return(
-      <div className="main">
+      <div className="main-one">
         <div className="inputs">
             <span onClick={() => {setShowOneCountry(false)}} className="back-button" id="hello"><i className="fas fa-arrow-left" style={{marginRight: '5px'}}></i> Back</span>
         </div>
@@ -67,26 +73,21 @@ function App() {
               
               <div className="country-info-details-left bold-text">
                 <p>Native Name: <span>{countryData.nativename}</span></p>
-                <p>Population: <span>{countryData.population}</span></p>
                 <p>Region: <span>{countryData.region}</span></p>
                 <p>Sub Region: <span>{countryData.subregion}</span></p>
                 <p>Capital: <span>{countryData.capital}</span></p>
               </div>
               <div className="country-info-details-right bold-text">
-                <p>Top Level Domain: <span>{countryData.topLevelDomain}</span></p>
                 <p>Numeric Code: <span>{countryData.numericCode}</span></p>
-                <p>Time zones: {countryData.timezone.map(time => (
-                  <span> {time},</span>
-                ))}</p>
-                <p>Languages: {countryData.languages.map(language => (
-                  <span> {language.name},</span>
-                ))}</p>
+                <p>Languages : {() => {for(var key in countryData.languages){
+                  <span>{countryData.languages[key]}, </span>
+                }}}</p>
               </div>
             </div>
             <div className={darkMode ? 'border-countries-dark' : 'border-countries'}>
-            <p>Border Countries: {countryData.borders.map(border => (
+            <p>Border Countries: {countryData.borders ? countryData.borders.map(border => (
                   <span>{border}</span>
-                ))}</p>
+                )) : <span>None</span>}</p>
           </div>
           </div>
           
@@ -119,7 +120,7 @@ function App() {
           {
           loaded ? 
           countries.map(country => (
-            <Country key={country.alpha3Code} name={country.name} img={country.flag} population={country.population} region={country.region} capital={country.capital} nativename={country.nativeName} subregion={country.subregion} topLevelDomain={country.topLevelDomain} numericCode={country.numericCode} timezone={country.timezones} borders={country.borders} languages={country.languages}/>
+            <Country key={country.cca3} name={country.name.official} img={country.flags[0]} region={country.region} capital={country.capital} nativename={country.name.common} subregion={country.subregion} numericCode={country.ccn3} borders={country.borders} languages={country.languages}/>
             )
           ) : <h3>Loading...</h3>
           }
@@ -130,7 +131,7 @@ function App() {
   }
 
   const getRegionCountries = (name) =>{
-    axios.get(`https://restcountries.eu/rest/v2/region/${name}`)
+    axios.get(`https://restcountries.com/v3/region/${name}`)
     .then(res => {
       setCountries(res.data)
     })
@@ -138,14 +139,14 @@ function App() {
 
   
   const searchCountries = (name) =>{
-    axios.get(`https://restcountries.eu/rest/v2/name/${name}`)
+    axios.get(`https://restcountries.com/v3/name/${name}`)
     .then(res => {
       setCountries(res.data)
     })
   }
 
   const getAllCountries = () =>{
-    axios.get(`https://restcountries.eu/rest/v2/all`)
+    axios.get(`https://restcountries.com/v3/all`)
     .then(res => {
       setCountries(res.data)
     })
@@ -179,6 +180,8 @@ function App() {
       document.body.classList.add('bg-black');
     }
   }
+
+  console.log(countries)
 
   return (
     <div className={darkMode ? 'App-dark' : 'App'}>

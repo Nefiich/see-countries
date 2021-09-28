@@ -63,6 +63,9 @@ body{
   padding-right: 100px;
   padding-top: 100px;
 }
+.main-one{
+  padding-top: 100px;
+}
 
 .inputs{
   display:flex;
@@ -114,8 +117,6 @@ box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
 
   margin-left: auto;
 }
@@ -311,4 +312,74 @@ box-shadow: 0px 0px 28px -3px rgba(0,0,0,0.83);
   background-color: hsl(207, 26%, 17%);
   -webkit-box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55); 
   box-shadow: 0px 0px 15px -5px rgba(0,0,0,0.55);
+}
+
+
+@media only screen and (max-width: 1140px){
+  .navigation{
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .navigation-dark{
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .title{
+    font-size: 1rem;
+  }
+  .inputs{
+    flex-direction: column;
+    align-items: center;
+  }
+  .dark-mode h3{
+    font-size: 0.9rem;
+  }
+  .dropdown{
+    margin-top: 20px;
+    margin-right: auto;
+  }
+  .country-container{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .country-image-container{
+    height:200px;
+    width: 300px
+  }
+  .country-image{
+    height:200px;
+    width:300px;
+  }
+  .country-info-container{
+    flex-direction: column;
+  }
+  .country-info-flag{
+    width: 30vh;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .country-info-flag img{
+    width: 30vh;
+  }
+  .country-details-container{
+    margin-left: 0;
+    padding: 0px 20px;
+  }
+  .border-countries p{
+    display:flex;
+    flex-direction: column;
+  }
+  .border-countries p span{
+    margin-top: 10px;
+  }
+  .border-countries-dark p{
+    display:flex;
+    flex-direction: column;
+  }
+  .border-countries-dark p span{
+    margin-top: 10px;
+  }
+  .back-button{
+    width: 60vw;
+  }
 }
